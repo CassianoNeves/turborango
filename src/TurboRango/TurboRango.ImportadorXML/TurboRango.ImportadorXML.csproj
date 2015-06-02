@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{421B80A1-EC04-46BA-802E-F99446DA42F8}</ProjectGuid>
+    <ProjectGuid>{6DDD17C8-C60F-479B-815D-2988F1DE2A14}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TurboRango.ImportadorXML</RootNamespace>
@@ -48,7 +48,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Solution\TurboRango.Dominio\TurboRango.Dominio.csproj">
+    <ProjectReference Include="..\TurboRango.Dominio\TurboRango.Dominio.csproj">
       <Project>{d3796f28-3909-44fb-8ef2-a2dcb8b41c72}</Project>
       <Name>TurboRango.Dominio</Name>
     </ProjectReference>
