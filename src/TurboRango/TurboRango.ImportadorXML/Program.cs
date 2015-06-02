@@ -10,7 +10,11 @@ namespace TurboRango.ImportadorXML
     {
         static void Main(string[] args)
         {
+            const string nomeArquivo = "restaurantes.xml";
 
+            var restaurantesXML = new RestaurantesXML(nomeArquivo);
+
+            restaurantesXML.ObterNomes();
         }
     }
 }
