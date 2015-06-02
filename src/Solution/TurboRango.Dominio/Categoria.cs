@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TurboRango.Dominio
 {
-    enum Categoria
+    internal enum Categoria
     {
         [Description("Comun")] Comun,
         [Description("Cozinha Natural")] CozinhaNatural,
