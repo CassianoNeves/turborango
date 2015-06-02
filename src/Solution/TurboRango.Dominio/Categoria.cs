@@ -9,12 +9,12 @@ namespace TurboRango.Dominio
 {
     enum Categoria
     {
-        [Description("Comun")] COMUN,
-        [Description("Cozinha Natural")] COZINHA_NATURAL,
-        [Description("Cozinha Mexicana")] COZINHA_MEXICANA,
-        [Description("Churrascaria")] CHURRASCARIA,
-        [Description("Cozinha Japonesa")] COZINHA_JAPONESA,
-        [Description("Fastfood")] FASTFOOD,
-        [Description("Pizzaria")] PIZZARIA
+        [Description("Comun")] Comun,
+        [Description("Cozinha Natural")] CozinhaNatural,
+        [Description("Cozinha Mexicana")] CozinhaMexicana,
+        [Description("Churrascaria")] Churrascaria,
+        [Description("Cozinha Japonesa")] CozinhaJaponeja,
+        [Description("Fastfood")] Fastfood,
+        [Description("Pizzaria")] Pizzaria
     }
 }
