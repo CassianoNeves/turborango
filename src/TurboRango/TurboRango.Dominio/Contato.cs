@@ -17,5 +17,7 @@ namespace TurboRango.Dominio
             this.Site = site;
             this.Telefone = telefone;
         }
+
+        public Contato() { }
     }
 }

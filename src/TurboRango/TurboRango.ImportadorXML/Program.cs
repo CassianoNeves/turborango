@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using TurboRango.Dominio;
 
@@ -54,6 +56,23 @@ namespace TurboRango.ImportadorXML
             //var porCategoria = restaurantesXML.AgruparPorCategoria();
             var restaurantesOrdenadosPorNomesAcendente = restaurantesXML.OrdenarPorNomeAsc();
             //var restaurantesComSite = restaurantesXML.ObterSites();
+
+
+            #region ADO.NET
+
+            var connString = @"Data Source=.\CASSIANO;Initial Catalog=TurboRango_dev;Integrated Security=True;";
+
+            var acessoAoBanco = new CarinhaQueManipulaOBanco(connString);
+
+            //acessoAoBanco.Inserir(new Contato
+            //{
+            //    Site = "www.dogão.com",
+            //    Telefone = "55555"
+            //});
+
+            IEnumerable<Contato> contatos = acessoAoBanco.getContatos();
+
+            #endregion
         }
     }
 }
