@@ -74,16 +74,17 @@ namespace TurboRango.ImportadorXML
 
         //public IList<Restaurante> AgruparPorCategoria()
         //{
-        //    var res = from n in restaurantes
+        //    var res = (from n in restaurantes
         //              group n by n.Attribute("categoria").Value into g
         //              select new
         //              {
         //                  Categoria = g.Key,
         //                  Restaurantes = g.ToList(),
         //                  SomatorioCapacidades = g.Sum(x => Convert.ToInt32(x.Attribute("capacidade").Value))
-        //              };
+        //              });
 
-        //    throw new NotImplementedException();
+
+        //    //throw new NotImplementedException();
         //}
 
         public IList<string> OrdenarPorNomeAsc()
@@ -93,6 +94,54 @@ namespace TurboRango.ImportadorXML
                 orderby x.Attribute("nome").Value ascending
                 select x.Attribute("nome").Value
                 ).ToList();
+        }
+
+        //public IList<string> ObterSites()
+        //{
+        //    return (
+        //        from x in restaurantes
+        //        where x.HasElements("")
+        //        select x.Element("site").Value
+        //        ).ToList();
+        //}
+
+
+        //exercicio 2
+
+        public IEnumerable<Restaurante> TodosRestaurantes()
+        {
+
+
+            var res =  (
+                from n in restaurantes
+                let localizacao = n.Element("localozacao")
+                let contato = n.Element("contato")
+                
+                select new Restaurante
+                (
+                    Convert.ToInt32(n.Attribute("capacidade").Value),
+                    n.Attribute("nome").Value,
+
+                    new Localizacao
+                    (
+                        localizacao.Element("bairro").Value,
+                        Convert.ToInt32(localizacao.Element("latitude").Value),
+                        Convert.ToInt32(localizacao.Element("longitude").Value),
+                        localizacao.Element("logradouro").Value
+                    ),
+
+                    new Contato
+                    (
+                        contato.Element("telefone").Value,
+                        contato.Element("site").Value),
+                        (Categoria)Enum.Parse(typeof(Categoria), n.Attribute("categoria").Value, ignoreCase: true
+                    )
+                )                   
+             );
+
+            return res.ToList();
+           
+
         }
     }
 }

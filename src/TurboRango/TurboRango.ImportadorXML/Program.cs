@@ -53,6 +53,7 @@ namespace TurboRango.ImportadorXML
             var capacidadeMaxima = restaurantesXML.CapacidadeMaxima();
             //var porCategoria = restaurantesXML.AgruparPorCategoria();
             var restaurantesOrdenadosPorNomesAcendente = restaurantesXML.OrdenarPorNomeAsc();
+            //var restaurantesComSite = restaurantesXML.ObterSites();
         }
     }
 }

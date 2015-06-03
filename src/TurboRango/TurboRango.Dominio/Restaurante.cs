@@ -8,6 +8,16 @@ namespace TurboRango.Dominio
 {
     public class Restaurante
     {
+        public Restaurante( int capacidade, string nome, Localizacao localizacao, Contato contato, Categoria categoria )
+        {
+            this.Capacidade = capacidade;
+            this.Nome = nome;
+            this.Localizacao = localizacao;
+            this.Categoria = categoria;
+        }
+
+        public Restaurante() { }
+
         public int? Capacidade { get; set; }
         public string Nome { get; set; }
         public Localizacao Localizacao { get; set; }
