@@ -72,18 +72,27 @@ namespace TurboRango.ImportadorXML
             return mad.Max();
         }
 
-        public IList<Restaurante> AgruparPorCategoria()
-        {
-            var res = from n in restaurantes
-                      group n by n.Attribute("categoria").Value into g
-                      select new
-                      {
-                          Categoria = g.Key,
-                          Restaurantes = g.ToList(),
-                          SomatorioCapacidades = g.Sum(x => Convert.ToInt32(x.Attribute("capacidade").Value))
-                      };
+        //public IList<Restaurante> AgruparPorCategoria()
+        //{
+        //    var res = from n in restaurantes
+        //              group n by n.Attribute("categoria").Value into g
+        //              select new
+        //              {
+        //                  Categoria = g.Key,
+        //                  Restaurantes = g.ToList(),
+        //                  SomatorioCapacidades = g.Sum(x => Convert.ToInt32(x.Attribute("capacidade").Value))
+        //              };
 
-            throw new NotImplementedException();
+        //    throw new NotImplementedException();
+        //}
+
+        public IList<string> OrdenarPorNomeAsc()
+        {
+            return (
+                from x in restaurantes
+                orderby x.Attribute("nome").Value ascending
+                select x.Attribute("nome").Value
+                ).ToList();
         }
     }
 }

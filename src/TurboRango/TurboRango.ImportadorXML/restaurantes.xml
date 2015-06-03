@@ -12,7 +12,7 @@
       <site>www.garfao.com</site>
     </contato>
   </restaurante>
-  <restaurante nome="SEMENTE" categoria="cozinha-natural" capacidade="40">
+  <restaurante nome="SEMENTE" categoria="cozinhanatural" capacidade="40">
     <localizacao>
       <logradouro>Rua: Joaquim Pedro Soares, 633</logradouro>
       <bairro>Centro</bairro>
@@ -23,7 +23,7 @@
       <telefone>3595-5258</telefone>
     </contato>
   </restaurante>
-  <restaurante nome="OLÉ ARMAZÉM MEXICANO" categoria="cozinha-mexicana" capacidade="30">
+  <restaurante nome="OLÉ ARMAZÉM MEXICANO" categoria="cozinhamexicana" capacidade="30">
     <localizacao>
       <logradouro>Rua Gomes Portinho, 448</logradouro>
       <bairro>Centro</bairro>
@@ -46,7 +46,7 @@
       <site>www.grupoprimaveranh.com.br</site>
     </contato>
   </restaurante>
-  <restaurante nome="SUSHI DAI" categoria="cozinha-japonesa" capacidade="40">
+  <restaurante nome="SUSHI DAI" categoria="cozinhajaponesa" capacidade="40">
     <localizacao>
       <logradouro>Bagé, 149</logradouro>
       <bairro>Boa Vista</bairro>
@@ -54,7 +54,7 @@
       <longitude>-51.125224</longitude>
     </localizacao>
   </restaurante>
-  <restaurante nome="TAKESHI" categoria="cozinha-japonesa" capacidade="35">
+  <restaurante nome="TAKESHI" categoria="cozinhajaponesa" capacidade="35">
     <localizacao>
       <logradouro>Rua Confraternização, 792</logradouro>
       <bairro>Pátria Nova</bairro>
@@ -65,7 +65,7 @@
       <telefone>3066-6660</telefone>
     </contato>
   </restaurante>
-  <restaurante nome="HAI SAIKÔ" categoria="cozinha-japonesa" capacidade="75">
+  <restaurante nome="HAI SAIKÔ" categoria="cozinhajaponesa" capacidade="75">
     <localizacao>
       <logradouro>Rua Gomes Portinho, 730</logradouro>
       <bairro>Mauá</bairro>
