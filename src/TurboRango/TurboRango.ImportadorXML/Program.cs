@@ -70,12 +70,31 @@ namespace TurboRango.ImportadorXML
             //    Telefone = "55555"
             //});
 
-            acessoAoBanco.InserirLocalizacao(new Localizacao 
+            //acessoAoBanco.InserirLocalizacao(new Localizacao 
+            //{
+            //    Logradouro = "Rua Sete de Setembro, 1045 - Liberdade",
+            //    Bairro = "Liberdade",
+            //    Latitude = -29.712571,
+            //    Longitude = -51.13636
+            //});
+
+            acessoAoBanco.InserirRestaurante(new Restaurante
             {
-                Logradouro = "Rua Sete de Setembro, 1045 - Liberdade",
-                Bairro = "Liberdade",
-                Latitude = -29.712571,
-                Longitude = -51.13636
+                Capacidade = 100,
+                Nome = "GARFÃO RESTAURANTE E PIZZARIA",
+                Localizacao = new Localizacao
+                {
+                    Logradouro = "Rua Sete de Setembro, 1045 - Liberdade",
+                    Bairro = "Liberdade",
+                    Latitude = -29.712571,
+                    Longitude = -51.13636
+                },
+                Contato = new Contato
+                {
+                    Site = "www.dogão.com",
+                    Telefone = "55555"
+                },
+                Categoria = Categoria.Comun
             });
 
             //IEnumerable<Contato> contatos = acessoAoBanco.getContatos();
