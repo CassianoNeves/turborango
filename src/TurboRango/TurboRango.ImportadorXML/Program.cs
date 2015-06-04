@@ -64,13 +64,21 @@ namespace TurboRango.ImportadorXML
 
             var acessoAoBanco = new CarinhaQueManipulaOBanco(connString);
 
-            //acessoAoBanco.Inserir(new Contato
+            //acessoAoBanco.InserirContato(new Contato
             //{
             //    Site = "www.dogão.com",
             //    Telefone = "55555"
             //});
 
-            IEnumerable<Contato> contatos = acessoAoBanco.getContatos();
+            acessoAoBanco.InserirLocalizacao(new Localizacao 
+            {
+                Logradouro = "Rua Sete de Setembro, 1045 - Liberdade",
+                Bairro = "Liberdade",
+                Latitude = -29.712571,
+                Longitude = -51.13636
+            });
+
+            //IEnumerable<Contato> contatos = acessoAoBanco.getContatos();
 
             #endregion
         }

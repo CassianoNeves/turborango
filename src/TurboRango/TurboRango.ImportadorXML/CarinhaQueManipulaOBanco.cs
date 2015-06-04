@@ -20,7 +20,7 @@ namespace TurboRango.ImportadorXML
 
         }
 
-        internal void Inserir(Contato contato)
+        internal void InserirContato(Contato contato)
         {
 
             using (var connection = new SqlConnection(this.connectionString))
@@ -37,9 +37,28 @@ namespace TurboRango.ImportadorXML
             }  
         }
 
+        internal void InserirLocalizacao(Localizacao localizacao)
+        {
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                string comandoSQL = "INSERT INTO [dbo].[Localizacao] ([Bairro],[Logradouro],[Latitude],[Longitude]) VALUES (@Bairro, @Logradouro, @Latitude, @Longitude)";
+                using (var inserirContato = new SqlCommand(comandoSQL, connection))
+                {
+                    inserirContato.Parameters.Add("@Bairro", SqlDbType.NVarChar).Value = localizacao.Bairro;
+                    inserirContato.Parameters.Add("@Logradouro", SqlDbType.NVarChar).Value = localizacao.Logradouro;
+                    inserirContato.Parameters.Add("@Latitude", SqlDbType.Float).Value = localizacao.Latitude;
+                    inserirContato.Parameters.Add("@Longitude", SqlDbType.Float).Value = localizacao.Longitude;
+
+                    connection.Open();
+                    int resultado = inserirContato.ExecuteNonQuery();
+                }
+            }
+        }
+
         internal IEnumerable<Contato> getContatos()
         {
-            List<Contato> contatos = new List<Contato>();
+            IList<Contato> contatos = new List<Contato>();
+
             using (var connection = new SqlConnection(this.connectionString))
             {
                 string comandoSQL = "SELECT [Site],[Telefone] FROM [dbo].[Contato]";

@@ -13,6 +13,7 @@ namespace TurboRango.Dominio
         public double Longitude { get; set; }
         public string Logradouro { get; set; }
 
+        public Localizacao() { }
         public Localizacao(string bairro, double latitude, double longitude, string logradouro)
         {
             this.Bairro = bairro;
