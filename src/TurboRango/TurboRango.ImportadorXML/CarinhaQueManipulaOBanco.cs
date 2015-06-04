@@ -24,17 +24,19 @@ namespace TurboRango.ImportadorXML
         {
 
             if( restaurante.Contato != null && restaurante.Localizacao != null){
-                InserirContato(restaurante.Contato);
-                InserirLocalizacao(restaurante.Localizacao);
+                int idContato = InserirContato(restaurante.Contato);
+                int idLocalizacao = InserirLocalizacao(restaurante.Localizacao);
 
                 using (var connection = new SqlConnection(this.connectionString))
                 {
-                    string comandoSQL = "INSERT INTO [dbo].[Restaurante] ([Capacidade],[Nome],[Categoria]) VALUES (@Capacidade, @Nome, @Categoria)";
+                    string comandoSQL = "INSERT INTO [dbo].[Restaurante] ([Capacidade],[Nome],[Categoria],[ContatoId],[LocalizacaoId]) VALUES (@Capacidade, @Nome, @Categoria, @idContato, @idLocalizacao)";
                     using (var inserirRestaurante = new SqlCommand(comandoSQL, connection))
                     {
                         inserirRestaurante.Parameters.Add("@Capacidade", SqlDbType.Int).Value = restaurante.Capacidade;
                         inserirRestaurante.Parameters.Add("@Nome", SqlDbType.NVarChar).Value = restaurante.Nome;
                         inserirRestaurante.Parameters.Add("@Categoria", SqlDbType.NVarChar).Value = restaurante.Categoria;
+                        inserirRestaurante.Parameters.Add("@idContato", SqlDbType.NVarChar).Value = idContato;
+                        inserirRestaurante.Parameters.Add("@idLocalizacao", SqlDbType.NVarChar).Value = idLocalizacao;
 
                         connection.Open();
                         int resultado = inserirRestaurante.ExecuteNonQuery();
@@ -43,28 +45,33 @@ namespace TurboRango.ImportadorXML
             }
         }
 
-        internal void InserirContato(Contato contato)
+        internal int InserirContato(Contato contato)
         {
+            int idCriado = 0;
 
             using (var connection = new SqlConnection(this.connectionString))
             {
-                string comandoSQL = "INSERT INTO [dbo].[contato] ([Site],[Telefone]) VALUES (@Site, @Telefone)";
+                string comandoSQL = "INSERT INTO [dbo].[contato] ([Site],[Telefone]) VALUES (@Site, @Telefone); SELECT @@IDENTITY";
                 using (var inserirContato = new SqlCommand(comandoSQL, connection))
                 {
                     inserirContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = contato.Site;
                     inserirContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = contato.Telefone;
 
                     connection.Open();
-                    int resultado = inserirContato.ExecuteNonQuery();
+                    //int resultado = inserirContato.ExecuteNonQuery();
+                    idCriado = Convert.ToInt32(inserirContato.ExecuteScalar());
                 }
-            }  
+            }
+
+            return idCriado;
         }
 
-        internal void InserirLocalizacao(Localizacao localizacao)
+        internal int InserirLocalizacao(Localizacao localizacao)
         {
+            int idCriado = 0;
             using (var connection = new SqlConnection(this.connectionString))
             {
-                string comandoSQL = "INSERT INTO [dbo].[Localizacao] ([Bairro],[Logradouro],[Latitude],[Longitude]) VALUES (@Bairro, @Logradouro, @Latitude, @Longitude)";
+                string comandoSQL = "INSERT INTO [dbo].[Localizacao] ([Bairro],[Logradouro],[Latitude],[Longitude]) VALUES (@Bairro, @Logradouro, @Latitude, @Longitude); SELECT @@IDENTITY";
                 using (var inserirLocalizacao = new SqlCommand(comandoSQL, connection))
                 {
                     inserirLocalizacao.Parameters.Add("@Bairro", SqlDbType.NVarChar).Value = localizacao.Bairro;
@@ -73,9 +80,12 @@ namespace TurboRango.ImportadorXML
                     inserirLocalizacao.Parameters.Add("@Longitude", SqlDbType.Float).Value = localizacao.Longitude;
 
                     connection.Open();
-                    int resultado = inserirLocalizacao.ExecuteNonQuery();
+                    //int resultado = inserirLocalizacao.ExecuteNonQuery();
+                    idCriado = Convert.ToInt32(inserirLocalizacao.ExecuteScalar());
                 }
             }
+
+            return idCriado;
         }
 
         internal IEnumerable<Contato> getContatos()
