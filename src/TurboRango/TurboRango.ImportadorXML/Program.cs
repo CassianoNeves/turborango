@@ -62,7 +62,7 @@ namespace TurboRango.ImportadorXML
 
             var connString = @"Data Source=.\CASSIANO;Initial Catalog=TurboRango_dev;Integrated Security=True;";
 
-            var acessoAoBanco = new CarinhaQueManipulaOBanco(connString);
+            var restaurantes = new Restaurantes(connString);
 
             //acessoAoBanco.InserirContato(new Contato
             //{
@@ -78,26 +78,38 @@ namespace TurboRango.ImportadorXML
             //    Longitude = -51.13636
             //});
 
-            acessoAoBanco.InserirRestaurante(new Restaurante
-            {
-                Capacidade = 100,
-                Nome = "GARFÃO RESTAURANTE E PIZZARIA",
-                Localizacao = new Localizacao
-                {
-                    Logradouro = "Rua Sete de Setembro, 1045 - Liberdade",
-                    Bairro = "Liberdade",
-                    Latitude = -29.712571,
-                    Longitude = -51.13636
-                },
-                Contato = new Contato
-                {
-                    Site = "www.dogão.com",
-                    Telefone = "55555"
-                },
-                Categoria = Categoria.Comun
-            });
+            //restaurantes.InserirRestaurante(new Restaurante
+            //{
+            //    Capacidade = 100,
+            //    Nome = "GARFÃO RESTAURANTE E PIZZARIA",
+            //    Localizacao = new Localizacao
+            //    {
+            //        Logradouro = "Rua Sete de Setembro, 1045 - Liberdade",
+            //        Bairro = "Liberdade",
+            //        Latitude = -29.712571,
+            //        Longitude = -51.13636
+            //    },
+            //    Contato = new Contato
+            //    {
+            //        Site = "www.dogão.com",
+            //        Telefone = "55555"
+            //    },
+            //    Categoria = Categoria.Comun
+            //});
 
             //IEnumerable<Contato> contatos = acessoAoBanco.getContatos();
+
+                #region InserirTotosRestaurantesDoXML
+
+                    var todosRestaurantes = restaurantesXML.TodosRestaurantes();
+
+                    foreach (var restauranteAtual in todosRestaurantes)
+                    {
+                        restaurantes.InserirRestaurante(restauranteAtual);
+                    }
+
+                #endregion
+
 
             #endregion
         }

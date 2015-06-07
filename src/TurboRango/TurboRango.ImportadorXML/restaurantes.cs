@@ -10,11 +10,11 @@ using TurboRango.Dominio;
 
 namespace TurboRango.ImportadorXML
 {
-    class CarinhaQueManipulaOBanco
+    class Restaurantes
     {
-        private string connectionString;
-       
-        public CarinhaQueManipulaOBanco( string connectionString )
+        private string connectionString { get; set; }
+
+        public Restaurantes(string connectionString)
         {
             this.connectionString = connectionString;
 
@@ -22,8 +22,9 @@ namespace TurboRango.ImportadorXML
 
         internal void InserirRestaurante(Restaurante restaurante)
         {
-
-            if( restaurante.Contato != null && restaurante.Localizacao != null){
+            if(restaurante.Contato != null && restaurante.Localizacao != null)
+            {
+            
                 int idContato = InserirContato(restaurante.Contato);
                 int idLocalizacao = InserirLocalizacao(restaurante.Localizacao);
 
@@ -45,7 +46,7 @@ namespace TurboRango.ImportadorXML
             }
         }
 
-        internal int InserirContato(Contato contato)
+        private int InserirContato(Contato contato)
         {
             int idCriado = 0;
 
@@ -54,8 +55,11 @@ namespace TurboRango.ImportadorXML
                 string comandoSQL = "INSERT INTO [dbo].[contato] ([Site],[Telefone]) VALUES (@Site, @Telefone); SELECT @@IDENTITY";
                 using (var inserirContato = new SqlCommand(comandoSQL, connection))
                 {
-                    inserirContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = contato.Site;
-                    inserirContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = contato.Telefone;
+                    var site = contato.Site != null ? contato.Site : (Object) DBNull.Value;
+                    var telefone = contato.Telefone != null ? contato.Telefone : (Object) DBNull.Value;
+
+                    inserirContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = site;
+                    inserirContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = telefone;
 
                     connection.Open();
                     //int resultado = inserirContato.ExecuteNonQuery();
@@ -66,7 +70,7 @@ namespace TurboRango.ImportadorXML
             return idCriado;
         }
 
-        internal int InserirLocalizacao(Localizacao localizacao)
+        private int InserirLocalizacao(Localizacao localizacao)
         {
             int idCriado = 0;
             using (var connection = new SqlConnection(this.connectionString))

@@ -110,38 +110,31 @@ namespace TurboRango.ImportadorXML
 
         public IEnumerable<Restaurante> TodosRestaurantes()
         {
-
-
-            var res =  (
+            return (
                 from n in restaurantes
-                let localizacao = n.Element("localozacao")
                 let contato = n.Element("contato")
-                
+                let site = contato != null && contato.Element("site") != null ? contato.Element("site").Value : null
+                let telefone = contato != null && contato.Element("telefone") != null ? contato.Element("telefone").Value : null
+                let localizacao = n.Element("localizacao")
                 select new Restaurante
-                (
-                    Convert.ToInt32(n.Attribute("capacidade").Value),
-                    n.Attribute("nome").Value,
-
-                    new Localizacao
-                    (
-                        localizacao.Element("bairro").Value,
-                        Convert.ToInt32(localizacao.Element("latitude").Value),
-                        Convert.ToInt32(localizacao.Element("longitude").Value),
-                        localizacao.Element("logradouro").Value
-                    ),
-
-                    new Contato
-                    (
-                        contato.Element("telefone").Value,
-                        contato.Element("site").Value),
-                        (Categoria)Enum.Parse(typeof(Categoria), n.Attribute("categoria").Value, ignoreCase: true
-                    )
-                )                   
-             );
-
-            return res.ToList();
-           
-
+                {
+                    Nome = n.Attribute("nome").Value,
+                    Capacidade = Convert.ToInt32(n.Attribute("capacidade").Value),
+                    Categoria = (Categoria)Enum.Parse(typeof(Categoria), n.Attribute("categoria").Value, ignoreCase: true),
+                    Contato = new Contato
+                    {
+                        Site = site,
+                        Telefone = telefone
+                    },
+                    Localizacao = new Localizacao
+                    {
+                        Bairro = localizacao.Element("bairro").Value,
+                        Logradouro = localizacao.Element("logradouro").Value,
+                        Latitude = Convert.ToDouble(localizacao.Element("latitude").Value),
+                        Longitude = Convert.ToDouble(localizacao.Element("longitude").Value)
+                    }
+                }
+            );
         }
     }
 }
