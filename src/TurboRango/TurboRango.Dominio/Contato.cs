@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace TurboRango.Dominio
 {
-    public class Contato
+    public class Contato : Entidade
     {
 
         public string Site { get; set; }
         public string Telefone { get; set; }
+
+        public Contato() { }
 
         public Contato(string site, string telefone)
         {
@@ -18,6 +20,6 @@ namespace TurboRango.Dominio
             this.Telefone = telefone;
         }
 
-        public Contato() { }
+        
     }
 }
