@@ -22,15 +22,17 @@ namespace TurboRango.ImportadorXML
             "FROM Restaurante r " +
 	        "LEFT JOIN Contato c on r.ContatoId = c.Id " +
 	        "LEFT JOIN Localizacao l on r.LocalizacaoId = l.Id";
-
         readonly static string SELECT_IDCONTATO_IDLOCALIZACAO = "SELECT [ContatoId],[LocalizacaoId] FROM [dbo].[Restaurante] WHERE [Id] = @Id";
-        readonly static string SELECT_CONTATO_POR_ID = "SELECT [Site],[Telefone] FROM [dbo].[Contato] WHERE [Id] = @Id";
-        readonly static string SELECT_LOCALIZACAO_POR_ID = "SELECT [Bairro],[Logradouro],[Latitude],[Longitude] FROM [dbo].[Localizacao] WHERE [Id] = @Id";
 
         readonly static string DELETE_RESTAURANTE = "DELETE FROM [dbo].[Restaurante] WHERE [Id] = @Id";
         readonly static string DELETE_CONTATO = "DELETE FROM [dbo].[Contato] WHERE [Id] = @Id";
         readonly static string DELETE_LOCALIZACAO = "DELETE FROM [dbo].[Localizacao] WHERE [Id] = @Id";
 
+        readonly static string UPDATE_CONTATO = "UPDATE Contato SET Site = @Site, Telefone = @Telefone WHERE Id = @Id";
+        readonly static string UPDATE_LOCALIZACAO = "UPDATE Localizacao set Bairro = @Bairro, Logradouro = @Logradouro, " +
+            "Latitude = @Latitude, Longitude = @Longitude WHERE id = @Id";
+        readonly static string UPDATE_RESTAURANTE = "UPDATE Restaurante SET Capacidade = @Capacidade, Nome = @Nome, " + 
+            "Categoria = @Categoria WHERE Id = @Id";
         
         private string ConnectionString { get; set; }
 
@@ -196,52 +198,6 @@ namespace TurboRango.ImportadorXML
             }
         }
 
-        //private Contato buscarContato(int id)
-        //{
-        //    Contato contato = new Contato();
-        //    using (var connection = new SqlConnection(this.ConnectionString))
-        //    {
-        //        using (var buscarContato = new SqlCommand(SELECT_CONTATO_POR_ID, connection))
-        //        {
-        //            buscarContato.Parameters.Add("@Id", SqlDbType.Int).Value = id;
-        //            connection.Open();
-        //            var reader = buscarContato.ExecuteReader();
-
-        //            while(reader.Read())
-        //            {
-        //                contato.Site = reader.GetString(0) != (Object) DBNull.Value ? reader.GetString(0) : null;
-        //                contato.Telefone = reader.GetString(1) != (Object)DBNull.Value ? reader.GetString(1) : null;
-        //            }
-        //        }
-        //    }
-
-        //    return contato;
-        //}
-
-        //private Localizacao buscarLocalizacao(int id)
-        //{
-        //    Localizacao localizacao = new Localizacao();
-        //    using (var connection = new SqlConnection(this.ConnectionString))
-        //    {
-        //        using (var buscarLocalizacao = new SqlCommand(SELECT_LOCALIZACAO_POR_ID, connection))
-        //        {
-        //            buscarLocalizacao.Parameters.Add("@Id", SqlDbType.Int).Value = id;
-        //            connection.Open();
-        //            var reader = buscarLocalizacao.ExecuteReader();
-
-        //            while (reader.Read())
-        //            {
-        //                localizacao.Bairro = reader.GetString(0);
-        //                localizacao.Logradouro = reader.GetString(1);
-        //                localizacao.Latitude = reader.GetInt32(2);
-        //                localizacao.Longitude = reader.GetInt32(3);
-        //            }
-        //        }
-        //    }
-
-        //    return localizacao;
-        //}
-
         public IEnumerable<Restaurante> Todos()
         {
             List<Restaurante> todos = new List<Restaurante>();
@@ -280,6 +236,87 @@ namespace TurboRango.ImportadorXML
             }
 
             return todos;
+        }
+
+        public void Atualizar(int id, Restaurante restaurante)
+        {
+            var idContato = 0;
+            var idLocalozacao = 0;
+
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                using (var buscarIdContatoIdLocalizacao = new SqlCommand(SELECT_IDCONTATO_IDLOCALIZACAO, connection))
+                {
+                    buscarIdContatoIdLocalizacao.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+                    connection.Open();
+
+                    var reader = buscarIdContatoIdLocalizacao.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        idContato = reader.GetInt32(0);
+                        idLocalozacao = reader.GetInt32(1);
+                    }
+
+                    AtualizarRestaurante(id, restaurante);
+                    AtualizarContato(idContato, restaurante.Contato);
+                    AtualizarLocalizacao(idLocalozacao, restaurante.Localizacao);
+                }  
+            }
+        }
+
+        private void AtualizarRestaurante(int id, Restaurante restaurante)
+        {
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                using (var atualizarRestaurante = new SqlCommand(UPDATE_RESTAURANTE, connection))
+                {
+                    atualizarRestaurante.Parameters.Add("@Capacidade", SqlDbType.NVarChar).Value = restaurante.Capacidade;
+                    atualizarRestaurante.Parameters.Add("@Nome", SqlDbType.NVarChar).Value = restaurante.Nome;
+                    atualizarRestaurante.Parameters.Add("@Categoria", SqlDbType.NVarChar).Value = restaurante.Categoria;
+                    atualizarRestaurante.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+                    connection.Open();
+
+                    int resultado = atualizarRestaurante.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void AtualizarContato(int id, Contato contato)
+        {
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                using (var atualizarContato = new SqlCommand(UPDATE_CONTATO, connection))
+                {
+                    atualizarContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = contato.Site;
+                    atualizarContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = contato.Telefone;
+                    atualizarContato.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+                    connection.Open();
+
+                    int resultado = atualizarContato.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void AtualizarLocalizacao(int id, Localizacao localizacao)
+        {
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                using (var atualizarLocalizacao = new SqlCommand(UPDATE_LOCALIZACAO, connection))
+                {
+                    atualizarLocalizacao.Parameters.Add("@Bairro", SqlDbType.NVarChar).Value = localizacao.Bairro;
+                    atualizarLocalizacao.Parameters.Add("@Logradouro", SqlDbType.NVarChar).Value = localizacao.Logradouro;
+                    atualizarLocalizacao.Parameters.Add("@Latitude", SqlDbType.Float).Value = localizacao.Latitude;
+                    atualizarLocalizacao.Parameters.Add("@Longitude", SqlDbType.Float).Value = localizacao.Longitude;
+                    atualizarLocalizacao.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+                    connection.Open();
+
+                    int resultado = atualizarLocalizacao.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

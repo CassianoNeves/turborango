@@ -94,7 +94,7 @@ namespace TurboRango.ImportadorXML
             //        Site = "www.dogão.com",
             //        Telefone = "55555"
             //    },
-            //    Categoria = Categoria.Comun
+            //    Categoria = Categoria.Comum
             //});
 
             //IEnumerable<Contato> contatos = acessoAoBanco.getContatos();
@@ -116,7 +116,26 @@ namespace TurboRango.ImportadorXML
 
             //#endregion
 
-            var todos = restaurantes.Todos();
+            //var todos = restaurantes.Todos();
+
+            restaurantes.Atualizar(2, new Restaurante
+            {
+                Capacidade = 100,
+                Nome = "GARFÃO RESTAURANTE E PIZZARIA",
+                Localizacao = new Localizacao
+                {
+                    Logradouro = "Rua Sete de Setembro, 1045 - Liberdade",
+                    Bairro = "Liberdade",
+                    Latitude = -29.712571,
+                    Longitude = -51.13636
+                },
+                Contato = new Contato
+                {
+                    Site = "www.dogão.com",
+                    Telefone = "55555"
+                },
+                Categoria = Categoria.Comum
+            });
 
             #endregion
         }
