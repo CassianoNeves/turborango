@@ -167,7 +167,7 @@ namespace TurboRango.ImportadorXML
                 {
                     excluirRestaurante.Parameters.Add("@Id", SqlDbType.Int).Value = id;
                     connection.Open();
-                    int resutlado = excluirRestaurante.ExecuteNonQuery();
+                    int resultado = excluirRestaurante.ExecuteNonQuery();
                 }
             }
         }
@@ -180,7 +180,7 @@ namespace TurboRango.ImportadorXML
                 {
                     excluirContato.Parameters.Add("@Id", SqlDbType.Int).Value = id;
                     connection.Open();
-                    int resutlado = excluirContato.ExecuteNonQuery();
+                    int resultado = excluirContato.ExecuteNonQuery();
                 }
             }
         }
@@ -193,7 +193,7 @@ namespace TurboRango.ImportadorXML
                 {
                     excluirLocalizacao.Parameters.Add("@Id", SqlDbType.Int).Value = id;
                     connection.Open();
-                    int resutlado = excluirLocalizacao.ExecuteNonQuery();
+                    int resultado = excluirLocalizacao.ExecuteNonQuery();
                 }
             }
         }
