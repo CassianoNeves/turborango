@@ -99,17 +99,22 @@ namespace TurboRango.ImportadorXML
 
             //IEnumerable<Contato> contatos = acessoAoBanco.getContatos();
 
-                #region InserirTotosRestaurantesDoXML
+            //#region InserirTotosRestaurantesDoXML
 
-                    var todosRestaurantes = restaurantesXML.TodosRestaurantes();
+            //var todosRestaurantes = restaurantesXML.TodosRestaurantes();
 
-                    foreach (var restauranteAtual in todosRestaurantes)
-                    {
-                        restaurantes.InserirRestaurante(restauranteAtual);
-                    }
+            //foreach (var restauranteAtual in todosRestaurantes)
+            //{
+            //    restaurantes.InserirRestaurante(restauranteAtual);
+            //}
 
-                #endregion
+           // #endregion
 
+            //#region ExcluirRestaurante
+
+            //restaurantes.Remover(1);
+
+            //#endregion
 
             #endregion
         }

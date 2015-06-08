@@ -12,11 +12,23 @@ namespace TurboRango.ImportadorXML
 {
     class Restaurantes
     {
-        private string connectionString { get; set; }
+        readonly static string INSERT_RESTAURANTE = "INSERT INTO [dbo].[Restaurante] ([Capacidade],[Nome],[Categoria],[ContatoId],[LocalizacaoId]) VALUES (@Capacidade, @Nome, @Categoria, @idContato, @idLocalizacao)";
+        readonly static string INSERT_CONTATO = "INSERT INTO [dbo].[contato] ([Site],[Telefone]) VALUES (@Site, @Telefone); SELECT @@IDENTITY";
+        readonly static string INSERT_LOCALIZACAO = "INSERT INTO [dbo].[Localizacao] ([Bairro],[Logradouro],[Latitude],[Longitude]) VALUES (@Bairro, @Logradouro, @Latitude, @Longitude); SELECT @@IDENTITY";
+        
+        readonly static string SELECT_CONTATO = "SELECT [Site],[Telefone] FROM [dbo].[Contato]";
+        readonly static string SELECT_IDCONTATO_IDLOCALIZACAO = "SELECT [ContatoId],[LocalizacaoId] FROM [dbo].[Restaurante] WHERE [Id] = @Id";
+
+        readonly static string DELETE_RESTAURANTE = "DELETE FROM [dbo].[Restaurante] WHERE [Id] = @Id";
+        readonly static string DELETE_CONTATO = "DELETE FROM [dbo].[Contato] WHERE [Id] = @Id";
+        readonly static string DELETE_LOCALIZACAO = "DELETE FROM [dbo].[Localizacao] WHERE [Id] = @Id";
+
+        
+        private string ConnectionString { get; set; }
 
         public Restaurantes(string connectionString)
         {
-            this.connectionString = connectionString;
+            this.ConnectionString = connectionString;
 
         }
 
@@ -24,14 +36,12 @@ namespace TurboRango.ImportadorXML
         {
             if(restaurante.Contato != null && restaurante.Localizacao != null)
             {
-            
                 int idContato = InserirContato(restaurante.Contato);
                 int idLocalizacao = InserirLocalizacao(restaurante.Localizacao);
 
-                using (var connection = new SqlConnection(this.connectionString))
+                using (var connection = new SqlConnection(this.ConnectionString))
                 {
-                    string comandoSQL = "INSERT INTO [dbo].[Restaurante] ([Capacidade],[Nome],[Categoria],[ContatoId],[LocalizacaoId]) VALUES (@Capacidade, @Nome, @Categoria, @idContato, @idLocalizacao)";
-                    using (var inserirRestaurante = new SqlCommand(comandoSQL, connection))
+                    using (var inserirRestaurante = new SqlCommand(INSERT_RESTAURANTE, connection))
                     {
                         inserirRestaurante.Parameters.Add("@Capacidade", SqlDbType.Int).Value = restaurante.Capacidade;
                         inserirRestaurante.Parameters.Add("@Nome", SqlDbType.NVarChar).Value = restaurante.Nome;
@@ -50,10 +60,9 @@ namespace TurboRango.ImportadorXML
         {
             int idCriado = 0;
 
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = new SqlConnection(this.ConnectionString))
             {
-                string comandoSQL = "INSERT INTO [dbo].[contato] ([Site],[Telefone]) VALUES (@Site, @Telefone); SELECT @@IDENTITY";
-                using (var inserirContato = new SqlCommand(comandoSQL, connection))
+                using (var inserirContato = new SqlCommand(INSERT_CONTATO, connection))
                 {
                     var site = contato.Site != null ? contato.Site : (Object) DBNull.Value;
                     var telefone = contato.Telefone != null ? contato.Telefone : (Object) DBNull.Value;
@@ -73,10 +82,9 @@ namespace TurboRango.ImportadorXML
         private int InserirLocalizacao(Localizacao localizacao)
         {
             int idCriado = 0;
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = new SqlConnection(this.ConnectionString))
             {
-                string comandoSQL = "INSERT INTO [dbo].[Localizacao] ([Bairro],[Logradouro],[Latitude],[Longitude]) VALUES (@Bairro, @Logradouro, @Latitude, @Longitude); SELECT @@IDENTITY";
-                using (var inserirLocalizacao = new SqlCommand(comandoSQL, connection))
+                using (var inserirLocalizacao = new SqlCommand(INSERT_LOCALIZACAO, connection))
                 {
                     inserirLocalizacao.Parameters.Add("@Bairro", SqlDbType.NVarChar).Value = localizacao.Bairro;
                     inserirLocalizacao.Parameters.Add("@Logradouro", SqlDbType.NVarChar).Value = localizacao.Logradouro;
@@ -96,10 +104,9 @@ namespace TurboRango.ImportadorXML
         {
             IList<Contato> contatos = new List<Contato>();
 
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = new SqlConnection(this.ConnectionString))
             {
-                string comandoSQL = "SELECT [Site],[Telefone] FROM [dbo].[Contato]";
-                using (var lerContatos = new SqlCommand(comandoSQL, connection))
+                using (var lerContatos = new SqlCommand(SELECT_CONTATO, connection))
                 {
                     connection.Open();
 
@@ -115,6 +122,73 @@ namespace TurboRango.ImportadorXML
             }
 
             return contatos;
+        }
+
+        public void Remover(int id)
+        {
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                var idContato = 0;
+                var idLocalizacao = 0;
+
+
+                using (var buscarIdContatoIdLocalizacao = new SqlCommand(SELECT_IDCONTATO_IDLOCALIZACAO, connection))
+                {
+                    buscarIdContatoIdLocalizacao.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+                    connection.Open();
+                    var reader = buscarIdContatoIdLocalizacao.ExecuteReader();
+
+                    while(reader.Read())
+                    {
+                        idContato = reader.GetInt32(0);
+                        idLocalizacao = reader.GetInt32(1);
+                    }
+
+                }
+
+                RemoverRestaurante(id);
+                RemoverContato(idContato);
+                RemoverLocalizacao(idLocalizacao);
+            }
+        }
+
+        private void RemoverRestaurante(int id)
+        {
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                using (var excluirRestaurante = new SqlCommand(DELETE_RESTAURANTE, connection))
+                {
+                    excluirRestaurante.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+                    connection.Open();
+                    int resutlado = excluirRestaurante.ExecuteNonQuery();
+                }
+            }
+        }
+        
+        private void RemoverContato(int id)
+        {
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                using (var excluirContato = new SqlCommand(DELETE_CONTATO, connection))
+                {
+                    excluirContato.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+                    connection.Open();
+                    int resutlado = excluirContato.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void RemoverLocalizacao(int id)
+        {
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                using (var excluirLocalizacao = new SqlCommand(DELETE_LOCALIZACAO, connection))
+                {
+                    excluirLocalizacao.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+                    connection.Open();
+                    int resutlado = excluirLocalizacao.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
