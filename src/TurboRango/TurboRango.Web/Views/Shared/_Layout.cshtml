@@ -20,7 +20,7 @@
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @if (HttpContext.Current.User.Identity.Name != "")
+                @if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Restaurantes", "Index", "Restaurantes")</li>
