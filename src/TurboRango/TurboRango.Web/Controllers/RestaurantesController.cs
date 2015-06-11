@@ -48,7 +48,7 @@ namespace TurboRango.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Capacidade,Nome,Categoria")] Restaurante restaurante)
+        public ActionResult Create([Bind(Include = "Id,Capacidade,Nome,Contato,Localizacao,Categoria")] Restaurante restaurante)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace TurboRango.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Capacidade,Nome,Categoria")] Restaurante restaurante)
+        public ActionResult Edit([Bind(Include = "Id,Capacidade,Nome,Contato,Localizacao,Categoria")] Restaurante restaurante)
         {
             if (ModelState.IsValid)
             {

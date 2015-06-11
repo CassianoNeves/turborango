@@ -28,6 +28,22 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Contato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Localizacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Localizacao)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Categoria)
         </dt>
 
@@ -37,7 +53,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
