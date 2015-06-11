@@ -30,6 +30,7 @@ namespace TurboRango.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Restaurante restaurante = db.Restaurantes.Find(id);
+            
             if (restaurante == null)
             {
                 return HttpNotFound();
@@ -112,6 +113,8 @@ namespace TurboRango.Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Restaurante restaurante = db.Restaurantes.Find(id);
+            db.Contato.Remove(restaurante.Contato);
+            db.Localizacao.Remove(restaurante.Localizacao);
             db.Restaurantes.Remove(restaurante);
             db.SaveChanges();
             return RedirectToAction("Index");

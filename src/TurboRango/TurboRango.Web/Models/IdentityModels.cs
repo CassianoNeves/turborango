@@ -31,5 +31,7 @@ namespace TurboRango.Web.Models
         }
 
         public System.Data.Entity.DbSet<TurboRango.Dominio.Restaurante> Restaurantes { get; set; }
+        public System.Data.Entity.DbSet<TurboRango.Dominio.Contato> Contato { get; set; }
+        public System.Data.Entity.DbSet<TurboRango.Dominio.Localizacao> Localizacao { get; set; }
     }
 }
