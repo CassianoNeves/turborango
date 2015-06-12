@@ -18,7 +18,7 @@
                 @if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Restaurantes", "Index", "Restaurantes")</li>
+                        <li>@Html.ActionLink("Restaurantes Admin", "Index", "Restaurantes")</li>
                     </ul>
                 }
                 @Html.Partial("_LoginPartial")

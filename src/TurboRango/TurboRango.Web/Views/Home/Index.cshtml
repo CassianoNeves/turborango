@@ -1,9 +1,39 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<style>
+    .block-inline{
+        display: inline-block;
+        margin: 20px;
+    }
+    .margin-img{
+        margin: 10px;
+    }
+    .margin-rs{
+        margin: 20px;
+    }
+</style>
 
 <div class="jumbotron">
     <h1>TurboRango</h1>
     <p class="lead">Encontre a melhor refeição para você!</p>
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Encontrar! &raquo;</a></p>
+</div>
+
+<div class="container">
+    <div class="row text-center">
+        
+        @foreach (var item in Model)
+        {
+                <div class="col-xs-6">
+                    <h3>@item.Nome</h3>
+                    <div class="">
+                        <img src="@item.Img" width="260px" class="img-rounded margin-img">
+                        <div class="caption">
+                            <p><a href="/Reservas/Create/@item.Id" class="btn btn-default" role="button">Reservar</a></p>
+                        </div>
+                    </div>
+                </div>
+        }
+    </div>
 </div>

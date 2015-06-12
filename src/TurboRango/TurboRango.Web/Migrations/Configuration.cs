@@ -46,7 +46,8 @@ namespace TurboRango.Web.Migrations
                     {
                         Site = "www.garfao.com",
                         Telefone = "(51) 3587-7700"
-                    }
+                    },
+                    Img = "http://pt.wix.com/blog/wp-content/uploads/2012/08/3-Elementos-Mais-Importantes-para-o-Site-de-um-Restaurante-3.jpg"
                 },
                 new Restaurante
                 {
@@ -63,7 +64,8 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "3595-5258"
-                    }
+                    },
+                    Img = "http://www.rotacomercial.com.br/_atividade_comercial/restaurante.02(1).jpg"
                 },
                 new Restaurante
                 {
@@ -80,7 +82,8 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "3279-8828"
-                    }
+                    },
+                    Img = "http://pt.wix.com/blog/wp-content/uploads/2012/08/3-Elementos-Mais-Importantes-para-o-Site-de-um-Restaurante-3.jpg"
                 },
                 new Restaurante
                 {
@@ -98,7 +101,8 @@ namespace TurboRango.Web.Migrations
                     {
                         Site = "www.grupoprimaveranh.com.br",
                         Telefone = "3595-8081"
-                    }
+                    },
+                    Img = "http://www.rotacomercial.com.br/_atividade_comercial/restaurante.02(1).jpg"
                 },
                 new Restaurante
                 {
@@ -111,7 +115,8 @@ namespace TurboRango.Web.Migrations
                         Bairro = "Boa Vista",
                         Latitude = -29.68942,
                         Longitude = -51.125224
-                    }
+                    },
+                    Img = "http://pt.wix.com/blog/wp-content/uploads/2012/08/3-Elementos-Mais-Importantes-para-o-Site-de-um-Restaurante-3.jpg"
                 },
                 new Restaurante
                 {
@@ -128,7 +133,8 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "3066-6660"
-                    }
+                    },
+                    Img = "http://www.rotacomercial.com.br/_atividade_comercial/restaurante.02(1).jpg"
                 },
                 new Restaurante
                 {
@@ -146,7 +152,8 @@ namespace TurboRango.Web.Migrations
                     {
                         Site = "www.haisaiko.com.br",
                         Telefone = "3593-5757"
-                    }
+                    },
+                    Img = "http://pt.wix.com/blog/wp-content/uploads/2012/08/3-Elementos-Mais-Importantes-para-o-Site-de-um-Restaurante-3.jpg"
                 },
                 new Restaurante
                 {
@@ -164,7 +171,8 @@ namespace TurboRango.Web.Migrations
                     {
                         Site = "www.picapaulanches.com",
                         Telefone = "(51) 3593-8079"
-                    }
+                    },
+                    Img = "http://www.rotacomercial.com.br/_atividade_comercial/restaurante.02(1).jpg"
                 },
                 new Restaurante
                 {
@@ -181,7 +189,8 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "35942512"
-                    }
+                    },
+                    Img = "http://pt.wix.com/blog/wp-content/uploads/2012/08/3-Elementos-Mais-Importantes-para-o-Site-de-um-Restaurante-3.jpg"
                 },
                 new Restaurante
                 {
@@ -198,7 +207,8 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "3595-5766"
-                    }
+                    },
+                    Img = "http://www.rotacomercial.com.br/_atividade_comercial/restaurante.02(1).jpg"
                 },
                 new Restaurante
                 {
@@ -215,7 +225,8 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "35252020"
-                    }
+                    },
+                    Img = "http://pt.wix.com/blog/wp-content/uploads/2012/08/3-Elementos-Mais-Importantes-para-o-Site-de-um-Restaurante-3.jpg"
                 },
                 new Restaurante
                 {
@@ -232,7 +243,8 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "35948400"
-                    }
+                    },
+                    Img = "http://www.rotacomercial.com.br/_atividade_comercial/restaurante.02(1).jpg"
                 },
                 new Restaurante
                 {
@@ -249,7 +261,8 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "35822841"
-                    }
+                    },
+                    Img = "http://pt.wix.com/blog/wp-content/uploads/2012/08/3-Elementos-Mais-Importantes-para-o-Site-de-um-Restaurante-3.jpg"
                 },
                 new Restaurante
                 {
@@ -266,7 +279,8 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "35276229"
-                    }
+                    },
+                    Img = "http://www.rotacomercial.com.br/_atividade_comercial/restaurante.02(1).jpg"
                 },
                 new Restaurante
                 {
@@ -283,7 +297,8 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "35813333"
-                    }
+                    },
+                    Img = "http://pt.wix.com/blog/wp-content/uploads/2012/08/3-Elementos-Mais-Importantes-para-o-Site-de-um-Restaurante-3.jpg"
                 },
                 new Restaurante
                 {
@@ -300,7 +315,8 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "35823000"
-                    }
+                    },
+                    Img = "http://www.rotacomercial.com.br/_atividade_comercial/restaurante.02(1).jpg"
                 },
                 new Restaurante
                 {
@@ -317,7 +333,8 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "35931602"
-                    }
+                    },
+                    Img = "http://pt.wix.com/blog/wp-content/uploads/2012/08/3-Elementos-Mais-Importantes-para-o-Site-de-um-Restaurante-3.jpg"
                 }
                 );
         }

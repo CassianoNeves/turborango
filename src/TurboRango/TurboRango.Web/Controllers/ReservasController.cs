@@ -11,128 +11,116 @@ using TurboRango.Web.Models;
 
 namespace TurboRango.Web.Controllers
 {
-    [Authorize]
-    public class RestaurantesController : Controller
+    public class ReservasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Restaurantes
+        // GET: Reservas
         public ActionResult Index()
         {
-            return View(db.Restaurantes.ToList());
+            return View(db.Reservas.ToList());
         }
 
-        // GET: Restaurantes/Details/5
+        // GET: Reservas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Restaurante restaurante = db.Restaurantes.Find(id);
-            
-            if (restaurante == null)
+            Reserva reserva = db.Reservas.Find(id);
+            if (reserva == null)
             {
                 return HttpNotFound();
             }
-            return View(restaurante);
+            return View(reserva);
         }
 
-        // GET: Restaurantes/Create
-        public ActionResult Create()
+        // GET: Reservas/Create/5
+        public ActionResult Create(int? id)
         {
-            return View();
+            ReservaRestaurante ReservaRestaurante =
+                new ReservaRestaurante
+                {
+                    Restaurante = db.Restaurantes.Find(id)
+                };
+
+            return View(ReservaRestaurante);
         }
 
-        // POST: Restaurantes/Create
+
+        // POST: Reservas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Capacidade,Nome,Contato,Localizacao,Categoria,Img")] Restaurante restaurante)
+        public ActionResult Create([Bind(Include = "Id,QtdPessoas,ValorTotal,Data,Turno")] Reserva reserva)
         {
             if (ModelState.IsValid)
             {
-                db.Restaurantes.Add(restaurante);
+                db.Reservas.Add(reserva);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(restaurante);
+            return View(reserva);
         }
 
-        // GET: Restaurantes/Edit/5
+        // GET: Reservas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Restaurante restaurante = db.Restaurantes.Find(id);
-            if (restaurante == null)
+            Reserva reserva = db.Reservas.Find(id);
+            if (reserva == null)
             {
                 return HttpNotFound();
             }
-            return View(restaurante);
+            return View(reserva);
         }
 
-        // POST: Restaurantes/Edit/5
+        // POST: Reservas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Capacidade,Nome,Contato,Localizacao,Categoria,Img")] Restaurante restaurante)
+        public ActionResult Edit([Bind(Include = "Id,QtdPessoas,ValorTotal,Data,Turno")] Reserva reserva)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(restaurante).State = EntityState.Modified;
+                db.Entry(reserva).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(restaurante);
+            return View(reserva);
         }
 
-        // GET: Restaurantes/Delete/5
+        // GET: Reservas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Restaurante restaurante = db.Restaurantes.Find(id);
-            if (restaurante == null)
+            Reserva reserva = db.Reservas.Find(id);
+            if (reserva == null)
             {
                 return HttpNotFound();
             }
-            return View(restaurante);
+            return View(reserva);
         }
 
-        // POST: Restaurantes/Delete/5
+        // POST: Reservas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Restaurante restaurante = db.Restaurantes.Find(id);
-            db.Contato.Remove(restaurante.Contato);
-            db.Localizacao.Remove(restaurante.Localizacao);
-            db.Restaurantes.Remove(restaurante);
+            Reserva reserva = db.Reservas.Find(id);
+            db.Reservas.Remove(reserva);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        [AllowAnonymous]
-        public JsonResult Restaurantes()
-        {
-            var todos = db.Restaurantes
-                .Include(_ => _.Localizacao)
-                .ToList();
-
-            return Json(new 
-                {
-                    restaurantes = todos
-                },
-                JsonRequestBehavior.AllowGet
-                );
         }
 
         protected override void Dispose(bool disposing)
