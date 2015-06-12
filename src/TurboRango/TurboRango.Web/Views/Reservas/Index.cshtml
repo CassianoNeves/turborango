@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TurboRango.Dominio.Reserva>
+﻿@model IEnumerable<TurboRango.Web.Models.ReservaRestaurante>
 
 @{
     ViewBag.Title = "Index";
@@ -29,30 +29,30 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.NomeCliente)
+            @Html.DisplayFor(modelItem => item.Reserva.NomeCliente)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.QtdPessoas)
+            @Html.DisplayFor(modelItem => item.Reserva.QtdPessoas)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ValorTotal)
+            @Html.DisplayFor(modelItem => item.Reserva.ValorTotal)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Data)
+            @Html.DisplayFor(modelItem => item.Reserva.Data)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Turno)
+            @Html.DisplayFor(modelItem => item.Reserva.Turno)
         </td>
         <td>
         @if (HttpContext.Current.User.Identity.IsAuthenticated)
         {
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) @Html.Raw(" |")
+            @Html.ActionLink("Editar", "Edit", new { id = item.Reserva.Id }) @Html.Raw(" |")
         }
-            @Html.ActionLink("Detalhar", "Details", new { id=item.Id }) 
+            @Html.ActionLink("Detalhar", "Details", new { id = item.Reserva.Id }) 
         @if (HttpContext.Current.User.Identity.IsAuthenticated)
         {
             @Html.Raw("| ")
-            @Html.ActionLink("Ecluir", "Delete", new { id=item.Id })
+            @Html.ActionLink("Ecluir", "Delete", new { id = item.Reserva.Id })
         }
         </td>
     </tr>

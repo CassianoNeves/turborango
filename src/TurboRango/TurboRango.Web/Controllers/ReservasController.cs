@@ -18,7 +18,21 @@ namespace TurboRango.Web.Controllers
         // GET: Reservas
         public ActionResult Index()
         {
-            return View(db.Reservas.ToList());
+            List<ReservaRestaurante> reservasRestaurantes = new List<ReservaRestaurante>();
+            var reservas = db.Reservas.ToList();
+
+            foreach( var reserva in reservas )
+            {
+                var restaurante = db.Restaurantes.Find(reserva.idRestaurante);
+
+                reservasRestaurantes.Add(new ReservaRestaurante
+                    {
+                        Reserva = reserva,
+                        Restaurante = restaurante
+                    }
+                );
+            }
+            return View(reservasRestaurantes);
         }
 
         // GET: Reservas/Details/5

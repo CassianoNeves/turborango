@@ -32,7 +32,7 @@ namespace TurboRango.Web.Migrations
                 r => r.Nome,
                 new Restaurante
                 {
-                    Nome = "GARFÃO RESTAURANTE E PIZZARIA",
+                    Nome = "GARFÃO RESTAURANTE",
                     Capacidade = 100,
                     Categoria = Categoria.Comum,
                     Localizacao = new Localizacao
