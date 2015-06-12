@@ -1,12 +1,17 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - TurboRango</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <style>
+        body{
+            font-family: 'Roboto', sans-serif;
+        }
         .nav-text-center{
 	        padding: 14px 15px;
             margin-left: 50px;
@@ -81,7 +86,7 @@
                 
                 <div class="navbar-header">
                     <ul id="text-pesquisar" class="nav navbar-nav navbar-left">
-                        <li class="nav-text-center"><b>Pesquisar Filmes: </b></li>
+                        <li class="nav-text-center"><b>Pesquisar Restaurantes: </b></li>
                     </ul>
                 </div>
                 
@@ -103,7 +108,9 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

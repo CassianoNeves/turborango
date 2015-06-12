@@ -1,10 +1,17 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Optimization;
 
 namespace TurboRango.Web
 {
     public class BundleConfig
     {
+        class NonOrderingBundleOrderer : IBundleOrderer
+        {
+            public IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<BundleFile> files)
+            {
+                return files;
+            }
+        }
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
@@ -19,8 +26,13 @@ namespace TurboRango.Web
                         "~/Scripts/typeahead.jquery.js").Include(
                         "~/Scripts/typeahead.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+            var jQValidate = new ScriptBundle("~/bundles/jqueryval").Include(
+                "~/Scripts/jquery.validate.js",
+                "~/Scripts/jquery.validate.pt-BR.js");
+
+            jQValidate.Orderer = new NonOrderingBundleOrderer();
+
+            bundles.Add(jQValidate);
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
