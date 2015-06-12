@@ -11,6 +11,9 @@ namespace TurboRango.Web
             bundles.Add(new ScriptBundle("~/bundles/haversine").Include(
                         "~/Scripts/haversine.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/validacoes").Include(
+                        "~/Scripts/validacoes.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js").Include(
                         "~/Scripts/typeahead.jquery.js").Include(
@@ -31,6 +34,8 @@ namespace TurboRango.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else

@@ -21,7 +21,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Capacidade, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Capacidade, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Capacidade, new { htmlAttributes = new { @class = "form-control number" } })
                 @Html.ValidationMessageFor(model => model.Capacidade, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -45,7 +45,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Contato.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Contato.Telefone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Contato.Telefone, new { htmlAttributes = new { @class = "form-control number", @onkeyup = "mascara( this, mtel );", @maxlength = "13" } })
                 @Html.ValidationMessageFor(model => model.Contato.Telefone, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -69,7 +69,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Localizacao.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Localizacao.Latitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Localizacao.Latitude, new { htmlAttributes = new { @class = "form-control number" } })
                 @Html.ValidationMessageFor(model => model.Localizacao.Latitude, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -77,7 +77,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Localizacao.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Localizacao.Longitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Localizacao.Longitude, new { htmlAttributes = new { @class = "form-control number" } })
                 @Html.ValidationMessageFor(model => model.Localizacao.Longitude, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -106,4 +106,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/validacoes")
 }

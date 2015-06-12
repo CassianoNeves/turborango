@@ -1,12 +1,12 @@
 ﻿@model TurboRango.Dominio.Restaurante
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
-<h2>Details</h2>
+<h2>Detalhes</h2>
 
-<div>
+@*<div>
     <h4>Restaurante</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -51,8 +51,63 @@
         </dd>
 
     </dl>
-</div>
+</div>*@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Capacidade</th>
+            <th>Nome</th> 
+            <th>Categoria</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayFor(model => model.Capacidade)</td>
+            <td>@Html.DisplayFor(model => model.Nome)</td>
+            <td>@Html.DisplayFor(model => model.Categoria)</td>
+        </tr>
+    </tbody>
+</table>
+<br /><h4>Localização</h4><br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Logradouro</th>
+            <th>Bairro</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayFor(model => model.Localizacao.Logradouro)</td>
+            <td>@Html.DisplayFor(model => model.Localizacao.Bairro)</td>
+            <td>@Html.DisplayFor(model => model.Localizacao.Latitude)</td>
+            <td>@Html.DisplayFor(model => model.Localizacao.Longitude)</td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<h4>Contato</h4><br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Site</th>
+            <th>Telefone</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayFor(model => model.Contato.Site)</td>
+            <td>@Html.DisplayFor(model => model.Contato.Telefone)</td>
+        </tr>
+    </tbody>
+</table>
+<br />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
+    @*@Html.ActionLink("Back to List", "Index")*@
+    <a href="/Restaurantes"><button class="btn btn-default">Voltar a Lista</button></a>
+    <a href="/Restaurantes/Edit/@Model.Id"><button class="btn btn-default">Editar</button></a>
 </p>
