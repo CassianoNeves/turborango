@@ -47,7 +47,13 @@ namespace TurboRango.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(reserva);
+            var restaurante = db.Restaurantes.Find(reserva.idRestaurante);
+
+            return View(new ReservaRestaurante
+            {
+                Reserva = reserva,
+                Restaurante = restaurante
+            });
         }
 
         // GET: Reservas/Create/5
@@ -92,7 +98,13 @@ namespace TurboRango.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(reserva);
+            var restaurante = db.Restaurantes.Find(reserva.idRestaurante);
+
+            return View(new ReservaRestaurante 
+            { 
+                Reserva = reserva,
+                Restaurante = restaurante
+            });
         }
 
         // POST: Reservas/Edit/5
@@ -100,15 +112,15 @@ namespace TurboRango.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,QtdPessoas,ValorTotal,Data,Turno,Restaurante")] ReservaRestaurante reservaRestaurante)
+        public ActionResult Edit([Bind(Include = "Id,QtdPessoas,ValorTotal,Data,Turno,idRestaurante")] Reserva reserva)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(reservaRestaurante.Reserva).State = EntityState.Modified;
+                db.Entry(reserva).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(reservaRestaurante.Reserva);
+            return View(reserva);
         }
 
         // GET: Reservas/Delete/5

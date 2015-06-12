@@ -9,6 +9,9 @@
 <table class="table">
     <tr>
         <th>
+            Restaurante
+        </th>
+        <th>
             Cliente
         </th>
         <th>
@@ -28,6 +31,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Restaurante.Nome)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Reserva.NomeCliente)
         </td>

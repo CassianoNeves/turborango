@@ -1,12 +1,12 @@
-﻿@model TurboRango.Dominio.Reserva
+﻿@model TurboRango.Web.Models.ReservaRestaurante
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
-<h2>Details</h2>
+<h2>Detalhes</h2>
 
-<div>
+@*<div>
     <h4>Reserva</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -15,7 +15,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.QtdPessoas)
+            
         </dd>
 
         <dt>
@@ -43,8 +43,84 @@
         </dd>
 
     </dl>
-</div>
+</div>*@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Quantidade Pessoas</th>
+            <th>Valor Total</th>
+            <th>Data</th>
+            <th>Turno</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayFor(model => model.Reserva.QtdPessoas)</td>
+            <td>@Html.DisplayFor(model => model.Reserva.ValorTotal)</td>
+            <td>@Html.DisplayFor(model => model.Reserva.Data)</td>
+            <td>@Html.DisplayFor(model => model.Reserva.Turno)</td>
+        </tr>
+    </tbody>
+</table>
+<h4>Restaurante</h4><br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Capacidade</th>
+            <th>Nome</th>
+            <th>Categoria</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayFor(model => model.Restaurante.Capacidade)</td>
+            <td>@Html.DisplayFor(model => model.Restaurante.Nome)</td>
+            <td>@Html.DisplayFor(model => model.Restaurante.Categoria)</td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<h4>Localização</h4><br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Logradouro</th>
+            <th>Bairro</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayFor(model => model.Restaurante.Localizacao.Logradouro)</td>
+            <td>@Html.DisplayFor(model => model.Restaurante.Localizacao.Bairro)</td>
+            <td>@Html.DisplayFor(model => model.Restaurante.Localizacao.Latitude)</td>
+            <td>@Html.DisplayFor(model => model.Restaurante.Localizacao.Longitude)</td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<h4>Contato</h4><br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Site</th>
+            <th>Telefone</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayFor(model => model.Restaurante.Contato.Site)</td>
+            <td>@Html.DisplayFor(model => model.Restaurante.Contato.Telefone)</td>
+        </tr>
+    </tbody>
+</table>
+<br />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")*@
+    <a href="/Reservas"><button class="btn btn-default">Voltar a Lista</button></a>
+    <a href="/Reservas/Edit/@Model.Reserva.Id"><button class="btn btn-default">Editar</button></a>
+    
 </p>
