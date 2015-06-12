@@ -121,6 +121,9 @@
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")*@
     <a href="/Reservas"><button class="btn btn-default">Voltar a Lista</button></a>
-    <a href="/Reservas/Edit/@Model.Reserva.Id"><button class="btn btn-default">Editar</button></a>
+    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        <a href="/Reservas/Edit/@Model.Reserva.Id"><button class="btn btn-default">Editar</button></a>
+    }
     
 </p>
