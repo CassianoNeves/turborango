@@ -8,10 +8,11 @@ namespace TurboRango.Dominio
 {
      public class Reserva : Entidade
     {
+         public string NomeCliente { get; set; }
         public int QtdPessoas { get; set; }
         public decimal ValorTotal { get; set; }
         public DateTime Data { get; set; }
         public string Turno { get; set; }
-        public Restaurante Restaurante { get; set; }
+        public int idRestaurante { get; set; }
     }
 }

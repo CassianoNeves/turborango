@@ -13,6 +13,14 @@ namespace TurboRango.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            routes.MapRoute(
+                name: "Reservas",
+                url: "Reservas/Restaurante/{nome}",
+                defaults: new { controller = "Reservas", action = "Restaurante", nome = UrlParameter.Optional }
+            );
+
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

@@ -4,30 +4,33 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Reservas</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.QtdPessoas)
+            Cliente
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ValorTotal)
+            Quantidade de Pessoas
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Data)
+            Valor Total
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Turno)
+            Data
+        </th>
+        <th>
+            Turno
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeCliente)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.QtdPessoas)
         </td>
@@ -41,9 +44,16 @@
             @Html.DisplayFor(modelItem => item.Turno)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) @Html.Raw(" |")
+        }
+            @Html.ActionLink("Detalhar", "Details", new { id=item.Id }) 
+        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            @Html.Raw("| ")
+            @Html.ActionLink("Ecluir", "Delete", new { id=item.Id })
+        }
         </td>
     </tr>
 }

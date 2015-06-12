@@ -19,7 +19,9 @@ namespace TurboRango.Web.Controllers
         // GET: Restaurantes
         public ActionResult Index()
         {
-            return View(db.Restaurantes.ToList());
+            return View(db.Restaurantes
+                .Include(x => x.Localizacao)
+                .ToList());
         }
 
         // GET: Restaurantes/Details/5
@@ -86,6 +88,8 @@ namespace TurboRango.Web.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(restaurante).State = EntityState.Modified;
+                db.Entry(restaurante.Contato).State = EntityState.Modified;
+                db.Entry(restaurante.Localizacao).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -113,8 +117,16 @@ namespace TurboRango.Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Restaurante restaurante = db.Restaurantes.Find(id);
-            db.Contato.Remove(restaurante.Contato);
-            db.Localizacao.Remove(restaurante.Localizacao);
+            if(restaurante.Contato != null)
+            {
+                db.Contato.Remove(restaurante.Contato);
+            }
+            
+            if(restaurante.Localizacao != null)
+            {
+                db.Localizacao.Remove(restaurante.Localizacao);
+            }
+            
             db.Restaurantes.Remove(restaurante);
             db.SaveChanges();
             return RedirectToAction("Index");

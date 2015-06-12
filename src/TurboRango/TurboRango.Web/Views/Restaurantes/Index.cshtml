@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Restaurantes</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="/Restaurantes/Create"><button class="btn btn-default">Cadastrar</button></a>
 </p>
 <table class="table">
     <tr>
@@ -20,7 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Categoria)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Localizacao.Bairro)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -35,11 +37,16 @@
             @Html.DisplayFor(modelItem => item.Categoria)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.Localizacao.Bairro)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalhar", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
-
 </table>
+<p>
+    <a href="/Restaurantes/Create"><button class="btn btn-default">Cadastrar</button></a>
+</p>

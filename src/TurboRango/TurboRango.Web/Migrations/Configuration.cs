@@ -10,7 +10,7 @@ namespace TurboRango.Web.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "TurboRango.Web.Models.ApplicationDbContext";
         }
 

@@ -6,11 +6,63 @@
     <title>@ViewBag.Title - TurboRango</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <style>
+        .nav-text-center{
+	        padding: 14px 15px;
+            margin-left: 50px;
+	    }
+        .typeahead,
+        .tt-query,
+        .tt-hint {
+              width: 596px !important;
+              height: 30px;
+              font-size: 20px;
+              line-height: 30px;
+              margin-top: 4px;
+        }
+        .tt-suggestion {
+              padding: 3px 20px;
+              font-size: 18px;
+              line-height: 24px;
+        }
+        .tt-suggestion:hover {
+              cursor: pointer;
+              color: #fff;
+              background-color: #0097cf;
+        }
+        .tt-suggestion.tt-cursor {
+              color: #fff;
+              background-color: #0097cf;
+        }
+        .tt-suggestion p {
+            margin: 0;
+        }
+        .tt-menu,
+        .gist {
+            text-align: left;
+        }
+        .tt-menu {
+              width: 422px;
+              margin: 12px 0;
+              padding: 8px 0;
+              background-color: #fff;
+              border: 1px solid #ccc;
+              border: 1px solid rgba(0, 0, 0, 0.2);
+              -webkit-border-radius: 8px;
+                 -moz-border-radius: 8px;
+                      border-radius: 8px;
+              -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+                 -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+                      box-shadow: 0 5px 10px rgba(0,0,0,.2);
+        }
+        #text-pesquisar{
+	        color: #777;
+	        font-size: 18px;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
             <div class="navbar-header">
                 @Html.ActionLink("TurboRango", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
@@ -18,18 +70,34 @@
                 @if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Restaurantes Admin", "Index", "Restaurantes")</li>
+                        <li>@Html.ActionLink("Restaurantes", "Index", "Restaurantes")</li>
+                    </ul>
+
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Reservas", "Index", "Reservas")</li>
                     </ul>
                 }
+                
+                <div class="navbar-header">
+                    <ul id="text-pesquisar" class="nav navbar-nav navbar-left">
+                        <li class="nav-text-center"><b>Pesquisar Filmes: </b></li>
+                    </ul>
+                </div>
+                
+                <form id="pesquisa" class="pesquisa navbar-form navbar-left" role="search">
+                    <div id="the-basics" class="form-group">
+                        <input id="input-pesquisa" class="typeahead form-control" type="text" placeholder="">
+                    </div>
+                </form>
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - TurboRango - Sua melhor opção!</p>
         </footer>
     </div>
 

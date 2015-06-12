@@ -12,7 +12,9 @@ namespace TurboRango.Web
                         "~/Scripts/haversine.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js").Include(
+                        "~/Scripts/typeahead.jquery.js").Include(
+                        "~/Scripts/typeahead.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

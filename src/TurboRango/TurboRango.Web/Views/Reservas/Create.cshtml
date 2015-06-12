@@ -1,21 +1,40 @@
 ﻿@model TurboRango.Web.Models.ReservaRestaurante
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Reservar";
 }
 
-<h2>Create</h2>
+<h2>@Model.Restaurante.Nome</h2>
+
+<div class="row">
+    <div class="col-xs-4 col-md-4 col-lg-4 text-center">
+        <img class="img-rounded" src="@Model.Restaurante.Img" width="250px" alt="Alternate Text" />
+    </div>
+    <div class="col-xs-4 col-md-4 col-lg-4">
+        <h4>Telefone: @Model.Restaurante.Contato.Telefone</h4>
+        <h4>Web Site: <a href="">@Model.Restaurante.Contato.Site</a></h4>
+    </div>
+</div>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    <input type="hidden" value="@Model.Restaurante.Id" name="Reserva.idRestaurante" />
     <div class="form-horizontal">
-        <h4>Reserva</h4>
+        <h4>Reservar</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Reserva.QtdPessoas, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="Reserva_NomeCliente">Nome Cliente</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Reserva.NomeCliente, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Reserva.NomeCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Reserva_QtdPessoas">Quantidade de Pessoas</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Reserva.QtdPessoas, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Reserva.QtdPessoas, "", new { @class = "text-danger" })
@@ -23,7 +42,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Reserva.ValorTotal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="Reserva_ValorTotal">Valor Total</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Reserva.ValorTotal, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Reserva.ValorTotal, "", new { @class = "text-danger" })
@@ -31,29 +50,36 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Reserva.Data, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="Reserva_Data">Data</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Reserva.Data, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.EditorFor(model => model.Reserva.Data, new { htmlAttributes = new { @class = "form-control", @type = "date", @required = "required" } })
                 @Html.ValidationMessageFor(model => model.Reserva.Data, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Reserva.Turno, htmlAttributes: new { @class = "control-label col-md-2" })
+        @*<div class="form-group">
+            <label class="control-label col-md-2" for="Reserva_Turno">Turno</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Reserva.Turno, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Reserva.Turno, "", new { @class = "text-danger" })
+                
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Reserva_Turno">Turno</label>
+            <div class="col-md-10">
+                <select class="form-control" name="Reserva.Turno" required>
+                    <option value="">-- Selecione --</option>
+                    <option value="MeioDia">Meio-Dia</option>
+                    <option value="Noite">Noite</option>
+                </select>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Reservar" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

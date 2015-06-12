@@ -54,16 +54,16 @@ namespace TurboRango.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,QtdPessoas,ValorTotal,Data,Turno")] Reserva reserva)
+        public ActionResult Create([Bind(Include = "idRestaurante,NomeCliente,QtdPessoas,ValorTotal,Data,Turno")] Reserva Reserva)
         {
             if (ModelState.IsValid)
             {
-                db.Reservas.Add(reserva);
+                db.Reservas.Add(Reserva);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(reserva);
+            return View(Reserva);
         }
 
         // GET: Reservas/Edit/5
@@ -86,15 +86,15 @@ namespace TurboRango.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,QtdPessoas,ValorTotal,Data,Turno")] Reserva reserva)
+        public ActionResult Edit([Bind(Include = "Id,QtdPessoas,ValorTotal,Data,Turno,Restaurante")] ReservaRestaurante reservaRestaurante)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(reserva).State = EntityState.Modified;
+                db.Entry(reservaRestaurante.Reserva).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(reserva);
+            return View(reservaRestaurante.Reserva);
         }
 
         // GET: Reservas/Delete/5
@@ -121,6 +121,28 @@ namespace TurboRango.Web.Controllers
             db.Reservas.Remove(reserva);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Reservas/Restaurantes
+        public JsonResult Restaurantes()
+        {
+            var todos = db.Restaurantes.ToList();
+
+            return Json(new
+            {
+                restaurantes = todos         
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: Reservas/Restaurante/s
+        public JsonResult Restaurante(string nome)
+        {
+            var restaurante = db.Restaurantes.ToList().Where(x => x.Nome == nome);
+
+            return Json(new
+            {
+                restaurante = restaurante
+            }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
